@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -17,7 +18,8 @@ export class CartModalComponent implements OnInit, OnDestroy {
   @Output() closeModal = new EventEmitter<boolean>();
 
   constructor(
-    private store: Store
+    private store: Store,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +36,12 @@ export class CartModalComponent implements OnInit, OnDestroy {
 
   toggleModalState(): void {
     this.closeModal.emit(false);
+  }
+
+  navigateToCheckoutPage() {
+    this.router.navigateByUrl('/checkout').then(() => {
+      this.toggleModalState();
+    });
   }
 
   ngOnDestroy(): void {

@@ -18,7 +18,7 @@
         </div>
       </div>
       <button [disabled]="!cartItems.length"
-              routerLink="/checkout"
+              (click)="navigateToCheckoutPage()"
               class="bg-red-500 hover:bg-red-700 disabled:cursor-not-allowed text-white w-full rounded-md mx-auto py-2 px-5">
         CheckOut
       </button>
