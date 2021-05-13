@@ -1,0 +1,24 @@
+<div class="max-w-screen-lg mx-auto px-5">
+
+  <div class="flex justify-between items-center mt-16 mb-10">
+    <h2 class="text-xl sm:text-2xl font-semibold">All Products</h2>
+    <select class="text-xs">
+      <option>Default</option>
+      <option value="price">Sort by Price</option>
+      <option value="popularity">Sort by Popularity</option>
+      <option value="rating">Sort by Rating</option>
+      <option value="sales">Sort by Sales</option>
+    </select>
+  </div>
+
+</div>
+
+<app-products-group [products]="products$| async"></app-products-group>
+
+<div class="product-paginator max-w-screen-lg mx-auto px-5">
+  <span>1</span>
+  <span>2</span>
+  <span>3</span>
+  <span>4</span>
+  <span>&#8594;</span>
+</div>

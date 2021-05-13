@@ -1,0 +1,17 @@
+.hamburger-active {
+  span.first-bar {
+    @apply transform;
+    @apply rotate-45;
+    @apply translate-y-1;
+  }
+
+  span.second-bar {
+    @apply hidden;
+  }
+
+  span.third-bar {
+    @apply transform;
+    @apply -rotate-45;
+    @apply -translate-y-1;
+  }
+}

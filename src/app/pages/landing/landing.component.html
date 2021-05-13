@@ -1,0 +1,44 @@
+<div class="bg-gradient-to-b md:bg-gradient-to-r from-red-200 via-red-100 to-red-200">
+  <div class="container mx-auto pt-24 pb-16 flex flex-col md:flex-row text-center md:text-left px-6 items-center">
+    <div class="flex-1 space-y-7">
+      <h1 class="text-5xl leading-tight font-semibold">
+        Give Your Workout <br> A New Style
+      </h1>
+      <p class="font-normal">Success isn't always about greatness. It's About consistency. Consistent
+        hard work gains success. Greatness will come.
+      </p>
+      <button routerLink="/products" class="bg-red-500 text-white rounded-full py-1.5 px-5 hover:bg-red-700 focus:outline-none duration-300 mt-7">
+        Explore Now &#8594;
+      </button>
+    </div>
+    <div class="flex-1">
+      <img class="w-max" src="assets/images/image1.png" alt="hero-image">
+    </div>
+  </div>
+</div>
+
+<div class="my-16">
+  <div class="max-w-screen-lg mx-auto px-5">
+    <div class="flex flex-col flex-wrap md:flex-row justify-around items-center">
+      <div style="flex-basis: 30%; min-width: 250px; margin-top: 30px;">
+        <img class="w-full" src="assets/images/category-1.jpg" alt="category">
+      </div>
+      <div style="flex-basis: 30%; min-width: 250px; margin-top: 30px;">
+        <img class="w-full" src="assets/images/category-2.jpg" alt="category">
+      </div>
+      <div style="flex-basis: 30%; min-width: 250px; margin-top: 30px;">
+        <img class="w-full" src="assets/images/category-3.jpg" alt="category">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <h2 class="title text-2xl font-semibold">Featured Products</h2>
+  <app-products-group [products]="featuredProducts"></app-products-group>
+</div>
+
+<div>
+  <h2 class="title text-2xl font-semibold">Latest Products</h2>
+  <app-products-group [products]="latestProducts"></app-products-group>
+</div>

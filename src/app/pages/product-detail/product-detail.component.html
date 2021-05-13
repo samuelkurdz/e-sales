@@ -1,0 +1,52 @@
+<div class="max-w-screen-lg mx-auto px-5 single-product">
+  <div class="flex items-center flex-wrap justify-around">
+    <section class="col-basis">
+      <img [src]="activeProduct.productImage" alt="gallery" width="100%" id="product-img">
+      <div class="small-img-row mt-2.5">
+        <div class="small-img-col" *ngFor="let displayImage of activeProduct.displayImages">
+          <img class="small-img" [src]="displayImage" alt="gallery" width="100%">
+        </div>
+      </div>
+    </section>
+    <section class="col-basis">
+      <p>home / T-shirt</p>
+      <h1 class="text-2xl md:text-5xl font-bold my-5 md:my-11 leading-tight">{{activeProduct.productName}}</h1>
+      <h4 class="text-base sm:text-2xl">#{{activeProduct.price|number}}</h4>
+      <select class="block mt-5 text-sm">
+        <option>Select Size</option>
+        <option *ngFor="let variety of activeProduct.sizes" [value]="variety">
+          {{variety}}
+      </select>
+      <div class="my-6">
+        <input class="w-20 mr-3 text-sm" type="number" value="1" min="1">
+        <a class="bg-red-500 hover:bg-red-800 cursor-pointer duration-200 text-white px-6 py-3 rounded-full"
+            (click)="addProductToCart(activeProduct)">
+          Add To Cart
+        </a>
+      </div>
+
+      <h3 class="mb-2 text-lg font-bold">
+        Product Details
+        <i class="inline-block text-red-600 align-middle">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clip-rule="evenodd" />
+          </svg>
+        </i>
+      </h3>
+      <p>
+        {{ activeProduct.description }}
+      </p>
+    </section>
+  </div>
+</div>
+
+
+<div class="max-w-screen-lg mx-auto px-2.5 sm:px-7 md:py-5">
+  <div class="flex justify-between items-center mt-12 mb-10">
+    <h2 class="text-lg sm:text-2xl font-semibold">Related Products</h2>
+    <a class="text-sm sm:text-base text-blue-600 hover:text-blue-800" routerLink="/products">View more</a>
+  </div>
+</div>
+
+
+<app-products-group [products]="featuredProducts"></app-products-group>
