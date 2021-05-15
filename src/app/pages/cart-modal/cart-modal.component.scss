@@ -6,7 +6,8 @@
   left: 0;
   right: 0;
   max-width: 384px;
-  height: 680px;
+  min-height: 600px !important;
+  height: 90%;
   margin: 0 auto;
   padding: 0 15px 10px;
   background: #fff;

@@ -10,7 +10,7 @@
         <p>Product</p>
         <p>Price</p>
       </div>
-      <div class="h-5/6 overflow-y-scroll">
+      <div class="h-4/5 overflow-y-scroll">
         <h3 *ngIf="!cartItems.length" class="text-center mt-10">No Items has been added to cart</h3>
         <div class="flex justify-around items-center mb-3" *ngFor="let cartItem of cartItems">
           <img class="h-40" [src]="cartItem.product.productImage" alt="product">
