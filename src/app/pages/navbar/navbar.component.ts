@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { toggleCartVisibility } from 'src/app/store/cart/cart.actions';
 import { selectCartItemsNumber, selectCartVisibility } from 'src/app/store/cart/cart.selectors';
+import { toggleNavbarDisplay } from 'src/app/store/structures/structures.actions';
+import { selectNavbarVisibility } from 'src/app/store/structures/structures.selectors';
 
 @Component({
   selector: 'app-navbar',
@@ -13,37 +16,40 @@ import { selectCartItemsNumber, selectCartVisibility } from 'src/app/store/cart/
 export class NavbarComponent implements OnInit, OnDestroy {
 
   isNavBarOpen: boolean;
-  isCartVisible: boolean;
-  numberOfItemsInCart: number;
+  isCartVisible$: Observable<boolean>;
+  numberOfItemsInCart$: Observable<number>;
 
   onDestroy$: Subject<boolean> = new Subject<boolean>();
   
   constructor(
-    private store: Store
+    private store: Store,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    // this.isCartVisible = this.store.select(selectCartVisibility);
-    this.getCartVisibilityState();
-    this.getNumberOfItemsInCart()
+    this.isCartVisible$ = this.store.select(selectCartVisibility);
+    this.numberOfItemsInCart$ = this.store.select(selectCartItemsNumber);
+    this.getNavbarDisplayState();
   }
 
-  getCartVisibilityState() {
-    this.store.select(selectCartVisibility)
+  getNavbarDisplayState() {
+    this.store.select(selectNavbarVisibility)
     .pipe(takeUntil(this.onDestroy$))
-    .subscribe((isVisible) => {
-      this.isCartVisible = isVisible;
+    .subscribe((navbarState) => {
+      this.isNavBarOpen = navbarState;
     })
   }
 
-  getNumberOfItemsInCart() {
-    this.store.select(selectCartItemsNumber)
-    .pipe(takeUntil(this.onDestroy$))
-    .subscribe((noInCart) => {
-      this.numberOfItemsInCart = noInCart;
-    })
+  routeHandler(route: string) {
+    if (this.isNavBarOpen) {
+      this.toggleNavbarState();
+    }
+    this.router.navigateByUrl(route);
   }
 
+  toggleNavbarState() {
+    this.store.dispatch(toggleNavbarDisplay())
+  }
 
   toggleCartState() {
     this.store.dispatch(toggleCartVisibility())

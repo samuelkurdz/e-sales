@@ -1,21 +1,23 @@
 <div class="relative flex items-center justify-between px-5 sm:px-12 py-3 bg-red-200 md:bg-gradient-to-r md:from-red-200 md:via-red-100 md:to-red-200">
-  <a routerLink="/"><img class="h-10 w-32 cursor-pointer" src="assets/images/logo.png" alt="logo" /></a>
+  <a (click)="routeHandler('/')"><img class="h-10 w-32 cursor-pointer" src="assets/images/logo.png" alt="logo" /></a>
   <div class="hidden space-x-11 sm:flex">
     <a class="text-gray-600 hover:text-gray-900 hover:font-bold" routerLink="/" >Home</a>
     <a class="text-gray-600 hover:text-gray-900 hover:font-bold" routerLink="/products" >Products</a>
     <a class="text-gray-600 hover:text-gray-900 hover:font-bold" routerLink="/account" >Account</a>
-    <app-cart-icon class="cursor-pointer" [cartCount]="numberOfItemsInCart" (click)="toggleCartState()"></app-cart-icon>
+    <app-cart-icon class="cursor-pointer" [cartCount]="numberOfItemsInCart$|async" (click)="toggleCartState()"></app-cart-icon>
   </div>
-  <div class="cursor-pointer flex flex-col space-y-1.5 sm:hidden" [class.hamburger-active]="isNavBarOpen" (click)="isNavBarOpen = !isNavBarOpen">
+  <div class="cursor-pointer flex flex-col space-y-1.5 sm:hidden" [class.hamburger-active]="isNavBarOpen" (click)="toggleNavbarState()">
     <span class="w-6 h-0.5 bg-black duration-150 first-bar"></span>
     <span class="w-6 h-0.5 bg-black duration-150 second-bar"></span>
     <span class="w-6 h-0.5 bg-black duration-150 third-bar"></span>
   </div>
-  <!-- <div class="absolute flex flex-col items-center justify-center top-full left-0 bg-white text-gray-600 w-full h-screen">
-    <a class="text-gray-600 hover:text-gray-900 hover:font-bold" routerLink="/" >Home</a>
-    <a class="text-gray-600 hover:text-gray-900 hover:font-bold" routerLink="/products" >Products</a>
-    <a class="text-gray-600 hover:text-gray-900 hover:font-bold" routerLink="/account" >Account</a>
-  </div> -->
+  <div
+      class="absolute flex flex-col items-center justify-center gap-y-12 text-2xl top-full left-0 bg-white text-gray-600 w-full h-screen z-10"
+      [class]="isNavBarOpen ? 'block' :'hidden'">
+    <a class="text-gray-600 hover:text-gray-900 hover:font-bold" (click)="routeHandler('/')">Home</a>
+    <a class="text-gray-600 hover:text-gray-900 hover:font-bold" (click)="routeHandler('/products')">Products</a>
+    <a class="text-gray-600 hover:text-gray-900 hover:font-bold" (click)="routeHandler('/account')">Account</a>
+  </div>
 </div>
 
-<app-cart-modal *ngIf="isCartVisible" (closeModal)="toggleCartState()"></app-cart-modal>
+<app-cart-modal *ngIf="isCartVisible$|async" (closeModal)="toggleCartState()"></app-cart-modal>

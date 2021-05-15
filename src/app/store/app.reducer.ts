@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import * as fromAccountStore from './account/account.reducer';
 import * as fromShopStore from './shop/shop.reducer';
 import * as fromCartStore from './cart/cart.reducer';
+import * as fromStructureStore from './structures/structures.reducer';
 /**
  * storeFreeze prevents state from being mutated. When mutation occurs, an
  * exception will be thrown. This is useful during development mode to
@@ -23,6 +24,7 @@ export interface RootState {
   account: fromAccountStore.AccountStateInterface;
   shop: fromShopStore.ShopStateInterface;
   cart: fromCartStore.CartStateInterface;
+  structure: fromStructureStore.StructureStateInterface;
 }
 
 /**
@@ -33,7 +35,8 @@ export interface RootState {
 export const reducers: ActionReducerMap<RootState> = {
   account: fromAccountStore.accountReducer,
   shop: fromShopStore.shopReducer,
-  cart: fromCartStore.cartReducer
+  cart: fromCartStore.cartReducer,
+  structure: fromStructureStore.structureReducer
 };
 
 // console.log all actions
