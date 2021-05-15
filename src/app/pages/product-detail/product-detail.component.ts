@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Product } from 'src/app/core/models/product.model';
 import { addProductToCart } from 'src/app/store/cart/cart.actions';
@@ -16,43 +17,56 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   productId: string;
   activeProduct: Product;
-  featuredProducts: Product[];
+  featuredProducts$: Observable<Product[]>;
   onDestroy$: Subject<boolean> = new Subject<boolean>();
+  addCartItemForm: FormGroup;
 
   
   constructor(
     private activatedRoute: ActivatedRoute,
-    private store: Store
+    private store: Store,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params
-    .pipe(takeUntil(this.onDestroy$))
-    .subscribe((params) => {
-      this.productId = params.productId;
-      this.getActiveProduct(this.productId);
-      this.getRelatedProducts();
-    })
+    this.initiateForm();
+    this.processRouteData();
   }
   
+  processRouteData() {
+    this.activatedRoute.params
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((params) => {
+        this.productId = params.productId;
+        this.getActiveProduct(this.productId);
+      });
+  }
+
   getActiveProduct(productId: string) {
     this.store.select(selectSingleProduct, { productId: productId })
     .pipe(takeUntil(this.onDestroy$))
     .subscribe((product) => {
       this.activeProduct = product;
+      this.featuredProducts$ = this.store.select(selectRelatedProducts);
     });
   }
 
-  getRelatedProducts() {
-    this.store.select(selectRelatedProducts)
-    .pipe(takeUntil(this.onDestroy$))
-    .subscribe((products) => {
-      this.featuredProducts = products;
+  initiateForm() {
+    this.addCartItemForm = this.formBuilder.group({
+      numberOfItems: [1, Validators.compose([Validators.min(1), Validators.required])],
+      preferredSize: [null]
     });
+
+    // this.addCartItemForm.valueChanges.subscribe((data) => {
+    //   console.log(data);
+    // })
   }
 
   addProductToCart(product: Product) {
-    this.store.dispatch(addProductToCart({ product, quantity: 1 }))
+    this.store.dispatch(addProductToCart({
+      product,
+      quantity: this.addCartItemForm.controls.numberOfItems.value
+    }))
   }
 
 
