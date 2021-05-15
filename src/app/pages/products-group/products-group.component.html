@@ -1,11 +1,15 @@
-<div class="max-w-screen-lg mx-auto px-5">
+<div class="max-w-screen-lg mx-auto px-2 md:px-5">
   <div class="flex text-center lg:text-left flex-wrap justify-around">
 
     <!-- product item -->
     <section class="p-0 sm:p-2.5 mb-10 transition transform hover:-translate-y-1 duration-500"
              *ngFor="let product of products; let productIndex = index">
-      <a [routerLink]="'/products/'+productIndex"><img class="w-full cursor-pointer" [src]="product.productImage" [alt]="product.productName"></a>
-      <a [routerLink]="'/products/'+productIndex"><h4 class="mt-2">{{ product.productName}}</h4></a>
+      <a [routerLink]="'/products/'+productIndex">
+        <img class="w-full cursor-pointer" [src]="product.productImage" [alt]="product.productName">
+      </a>
+      <a [routerLink]="'/products/'+productIndex">
+        <h4 class="mt-2">{{ product.productName}}</h4>
+      </a>
       <app-star-rating [rating]="product.ratings"></app-star-rating>
       <p class="text-sm">#{{product.price |number}}</p>
     </section>
