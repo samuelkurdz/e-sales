@@ -26,9 +26,13 @@ export const cartReducer = createReducer(
     cartActions.toggleCartVisibility, (state) => ({...state, isCartVisible: !state.isCartVisible})
   ),
   on(
+    // work on how to make preferred variations an array of different variations,
+    // obtaining total product quantity from sum of different variations
     cartActions.addProductToCart, (state, {product, quantity, preferredVariation}) => ({...state, cartItems: addItemToCartUtil(state.cartItems, product, quantity, preferredVariation) })
   ),
   on(
+    // work on how to make remove variations from an array of different variations,
+    // obtaining total product quantity after removal of one variation or of entire product
     cartActions.removeProductFromCart, (state, {product}) => ({...state, cartItems: removeItemFromCartUtil(state.cartItems, product)})
   )
 )
