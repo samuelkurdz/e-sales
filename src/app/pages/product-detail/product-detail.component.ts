@@ -29,7 +29,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.initiateForm();
     this.processRouteData();
   }
   
@@ -39,6 +38,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       .subscribe((params) => {
         this.productId = params.productId;
         this.getActiveProduct(this.productId);
+        this.initiateForm();
       });
   }
 
@@ -65,8 +65,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   addProductToCart(product: Product) {
     this.store.dispatch(addProductToCart({
       product,
-      quantity: this.addCartItemForm.controls.numberOfItems.value
-    }))
+      quantity: this.addCartItemForm.controls.numberOfItems.value || 1,
+      preferredVariation: this.addCartItemForm.controls.preferredSize.value
+    }));
   }
 
 

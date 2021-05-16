@@ -4,7 +4,7 @@ import { Product } from "src/app/core/models/product.model";
 
 export const addProductToCart = createAction(
   '[CART] Add Product',
-  props<{ product: Product, quantity: number }>()
+  props<{ product: Product, quantity: number, preferredVariation: any }>()
 )
 
 export const toggleCartVisibility = createAction(

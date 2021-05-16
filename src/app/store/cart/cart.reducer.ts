@@ -6,7 +6,8 @@ import { addItemToCartUtil, removeItemFromCartUtil } from "./cart.utils";
 
 export interface CartItem {
   product: Product,
-  quantity: number
+  quantity: number,
+  preferredVariation: any
 }
 
 export interface CartStateInterface {
@@ -25,7 +26,7 @@ export const cartReducer = createReducer(
     cartActions.toggleCartVisibility, (state) => ({...state, isCartVisible: !state.isCartVisible})
   ),
   on(
-    cartActions.addProductToCart, (state, {product, quantity}) => ({...state, cartItems: addItemToCartUtil(state.cartItems, product, quantity) })
+    cartActions.addProductToCart, (state, {product, quantity, preferredVariation}) => ({...state, cartItems: addItemToCartUtil(state.cartItems, product, quantity, preferredVariation) })
   ),
   on(
     cartActions.removeProductFromCart, (state, {product}) => ({...state, cartItems: removeItemFromCartUtil(state.cartItems, product)})
