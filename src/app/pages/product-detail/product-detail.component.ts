@@ -16,7 +16,8 @@ import { selectRelatedProducts, selectSingleProduct } from 'src/app/store/shop/s
 export class ProductDetailComponent implements OnInit, OnDestroy {
 
   productId: string;
-  activeProduct: Product;
+  // activeProduct: Product;
+  activeProduct$: Observable<Product>;
   featuredProducts$: Observable<Product[]>;
   onDestroy$: Subject<boolean> = new Subject<boolean>();
   addCartItemForm: FormGroup;
@@ -37,19 +38,21 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((params) => {
         this.productId = params.productId;
-        this.getActiveProduct(this.productId);
+        this.activeProduct$ = this.store.select(selectSingleProduct, {productId: this.productId});
+        this.featuredProducts$ = this.store.select(selectRelatedProducts);
+        // this.getActiveProduct(this.productId);
         this.initiateForm();
       });
   }
 
-  getActiveProduct(productId: string) {
-    this.store.select(selectSingleProduct, { productId: productId })
-    .pipe(takeUntil(this.onDestroy$))
-    .subscribe((product) => {
-      this.activeProduct = product;
-      this.featuredProducts$ = this.store.select(selectRelatedProducts);
-    });
-  }
+  // getActiveProduct(productId: string) {
+  //   this.store.select(selectSingleProduct, { productId: productId })
+  //   .pipe(takeUntil(this.onDestroy$))
+  //   .subscribe((product) => {
+  //     this.activeProduct = product;
+  //     this.featuredProducts$ = this.store.select(selectRelatedProducts);
+  //   });
+  // }
 
   initiateForm() {
     this.addCartItemForm = this.formBuilder.group({
@@ -65,7 +68,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   addProductToCart(product: Product) {
     this.store.dispatch(addProductToCart({
       product,
-      quantity: this.addCartItemForm.controls.numberOfItems.value || 1,
+      quantity: this.addCartItemForm.controls.numberOfItems.value ?? 1,
       preferredVariation: this.addCartItemForm.controls.preferredSize.value
     }));
   }

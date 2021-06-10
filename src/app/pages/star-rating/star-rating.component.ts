@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-star-rating',
@@ -14,7 +14,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
   `,
   // styleUrls: ['./star-rating.component.scss]
 })
-export class StarRatingComponent implements OnInit {
+export class StarRatingComponent implements AfterViewInit {
   @Input() rating: number;
 
   @ViewChild('starRate') starRate: ElementRef;
@@ -22,7 +22,7 @@ export class StarRatingComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void { }
+  // ngOnInit(): void { }
 
   ngAfterViewInit(): void {
     this.setRating();

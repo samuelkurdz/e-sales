@@ -1,4 +1,4 @@
-<div class="max-w-screen-lg mx-auto px-5 single-product">
+<div class="max-w-screen-lg mx-auto px-5 single-product" *ngIf="activeProduct$|async as activeProduct">
   <div class="flex items-center flex-wrap justify-around">
     <section class="col-basis">
       <img [src]="activeProduct.productImage" alt="gallery" width="100%" id="product-img">

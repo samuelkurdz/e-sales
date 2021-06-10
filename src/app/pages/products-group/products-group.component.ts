@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Product } from 'src/app/core/models/product.model';
 
 @Component({
@@ -6,14 +6,12 @@ import { Product } from 'src/app/core/models/product.model';
   templateUrl: './products-group.component.html',
   styleUrls: ['./products-group.component.scss']
 })
-export class ProductsGroupComponent implements OnInit {
+export class ProductsGroupComponent {
   
   @Input() products: Product[];
 
   constructor() { }
 
-  ngOnInit(): void {
-
-  }
+  
 
 }

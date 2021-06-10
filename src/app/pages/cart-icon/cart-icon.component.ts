@@ -1,16 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-cart-icon',
   templateUrl: './cart-icon.component.html',
   styleUrls: ['./cart-icon.component.scss']
 })
-export class CartIconComponent implements OnInit {
+export class CartIconComponent {
   @Input() cartCount: number;
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  
 
 }

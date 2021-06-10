@@ -3,7 +3,7 @@ module.exports = {
   prefix: '',
   purge: {
     // enabled: true,
-    enabled: process.env.WEBPACK_DEV_SERVER === 'true' && process.argv.join(' ').indexOf('build') !== -1,
+    // enabled: process.env.WEBPACK_DEV_SERVER === 'true' && process.argv.join(' ').indexOf('build') !== -1,
     content: [
       './src/**/*.{html,ts}',
     ]
