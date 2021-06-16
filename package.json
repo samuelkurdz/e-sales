@@ -1,10 +1,10 @@
 {
-  "name": "tailwindproject",
+  "name": "nuella",
   "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --hmr --port 3000",
-    "build": "SET NODE_ENV=production ng build",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
